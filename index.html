@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vetta Noble — Carpintería Artesanal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ══ VARIABLES ══ */
+    :root {
+      --verde:       #1A3828;
+      --verde-med:   #254d38;
+      --crema:       #F5EDD8;
+      --crema-suave: #FAF6ED;
+      --tierra:      #C4935A;
+      --tierra-osc:  #a07540;
+      --texto:       #1A3828;
+      --blanco:      #ffffff;
+      --gris:        #8a8a8a;
+      --font-serif:  'Playfair Display', Georgia, serif;
+      --font-sans:   'Raleway', sans-serif;
+      --transition:  0.35s ease;
+      --radius:      4px;
+    }
+
+    /* ══ RESET ══ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-sans); color: var(--texto); background: var(--crema-suave); overflow-x: hidden; }
+    img  { display: block; max-width: 100%; }
+    a    { color: inherit; text-decoration: none; }
+    ul   { list-style: none; }
+
+    /* ══ UTILIDADES ══ */
+    .section-label {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tierra);
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: inherit;
+    }
+    .section-title em { font-style: italic; color: var(--tierra); }
+    .divider {
+      width: 48px; height: 2px;
+      background: var(--tierra);
+      margin: 1.4rem 0 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-crema {
+      background: var(--crema);
+      color: var(--verde);
+    }
+    .btn-crema:hover { background: var(--tierra); color: var(--crema); }
+    .btn-tierra {
+      background: var(--tierra);
+      color: var(--crema);
+    }
+    .btn-tierra:hover { background: var(--tierra-osc); }
+    .btn-outline {
+      background: transparent;
+      color: var(--crema);
+      border: 1.5px solid rgba(245,237,216,0.5);
+    }
+    .btn-outline:hover { border-color: var(--crema); background: rgba(245,237,216,0.1); }
+
+    /* ══ NAVBAR ══ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 5%;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    #navbar.scrolled {
+      background: var(--verde);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.28);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .nav-logo svg { width: 36px; height: 36px; }
+    .nav-logo-text {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--crema);
+      line-height: 1;
+    }
+    .nav-logo-sub {
+      font-family: var(--font-sans);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: var(--tierra);
+      font-weight: 500;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.4rem;
+    }
+    .nav-links a {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(245,237,216,0.8);
+      transition: color var(--transition);
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -4px;
+      width: 0; height: 1px;
+      background: var(--tierra);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover { color: var(--crema); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* hamburger */
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--crema); transition: var(--transition); }
+
+    /* ══ HERO ══ */
+    #inicio {
+      min-height: 100vh;
+      background: var(--verde);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #inicio::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center top, #254d38 0%, #1A3828 65%);
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-tree { margin: 0 auto 2.2rem; opacity: 0.96; animation: fadeDown 1.2s ease both; }
+    .hero-name {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 8vw, 5rem);
+      font-weight: 700;
+      color: var(--crema);
+      letter-spacing: 0.18em;
+      line-height: 1;
+      animation: fadeUp 1s 0.3s ease both;
+    }
+    .hero-tag {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--tierra);
+      margin: 0.6rem 0 2.4rem;
+      animation: fadeUp 1s 0.5s ease both;
+    }
+    .hero-sub {
+      font-family: var(--font-serif);
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-style: italic;
+      color: rgba(245,237,216,0.7);
+      max-width: 480px;
+      line-height: 1.6;
+      margin: 0 auto 3rem;
+      animation: fadeUp 1s 0.6s ease both;
+    }
+    .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: fadeUp 1s 0.8s ease both; }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: rgba(245,237,216,0.4);
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      animation: bounce 2s 2s ease-in-out infinite;
+    }
+    .hero-scroll-line { width: 1px; height: 40px; background: rgba(245,237,216,0.25); }
+
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp   { from { opacity: 0; transform: translateY(20px);  } to { opacity: 1; transform: translateY(0); } }
+    @keyframes bounce   { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+    /* ══ NOSOTROS ══ */
+    #nosotros {
+      background: var(--crema-suave);
+      padding: 7rem 5%;
+    }
+    .nosotros-grid {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .nosotros-body {
+      font-size: 1.02rem;
+      line-height: 1.85;
+      color: #3a4a40;
+      margin-bottom: 2rem;
+    }
+    .values {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .value-chip {
+      padding: 0.45rem 1.1rem;
+      border: 1.5px solid var(--verde);
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--verde);
+    }
+    .nosotros-visual {
+      position: relative;
+    }
+    .nosotros-box {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: var(--verde);
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      padding: 2rem;
+    }
+    .nosotros-box svg { opacity: 0.85; }
+    .nosotros-box p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: rgba(245,237,216,0.65);
+      font-size: 0.95rem;
+      text-align: center;
+      line-height: 1.7;
+    }
+    .nosotros-accent {
+      position: absolute;
+      top: -20px; left: -20px;
+      width: 80px; height: 80px;
+      background: var(--tierra);
+      opacity: 0.18;
+      border-radius: 2px;
+      z-index: -1;
+    }
+
+    /* ══ SERVICIOS ══ */
+    #servicios {
+      background: var(--verde);
+      padding: 7rem 5%;
+    }
+    #servicios .section-label { color: var(--tierra); }
+    #servicios .section-title { color: var(--crema); }
+    #servicios .divider { background: var(--tierra); }
+    .servicios-header { max-width: 1080px; margin: 0 auto 3.5rem; }
+    .servicios-grid {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      border: 1.5px solid rgba(245,237,216,0.1);
+    }
+    .servicio-card {
+      background: rgba(245,237,216,0.04);
+      padding: 2.4rem 2rem;
+      border: 1px solid rgba(245,237,216,0.08);
+      transition: background var(--transition);
+      cursor: default;
+    }
+    .servicio-card:hover { background: rgba(245,237,216,0.09); }
+    .servicio-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .servicio-name {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--crema);
+      margin-bottom: 0.7rem;
+    }
+    .servicio-desc {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: rgba(245,237,216,0.58);
+    }
+
+    /* ══ GALERÍA ══ */
+    #galeria {
+      background: var(--crema-suave);
+      padding: 7rem 5%;
+    }
+    .galeria-header {
+      max-width: 1080px;
+      margin: 0 auto 3rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .galeria-grid {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 240px;
+      gap: 12px;
+    }
+    .galeria-item {
+      background: var(--verde);
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform var(--transition);
+    }
+    .galeria-item:hover { transform: scale(1.015); }
+    .galeria-item.tall { grid-row: span 2; }
+    .galeria-item.wide { grid-column: span 2; }
+    .galeria-placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+      opacity: 0.35;
+    }
+    .galeria-placeholder svg { width: 40px; height: 40px; }
+    .galeria-placeholder span {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--crema);
+      font-weight: 500;
+    }
+    .galeria-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,56,40,0.7) 0%, transparent 50%);
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .galeria-item:hover .galeria-overlay { opacity: 1; }
+
+    /* ══ PROCESO ══ */
+    #proceso {
+      background: var(--verde);
+      padding: 7rem 5%;
+    }
+    #proceso .section-label { color: var(--tierra); }
+    #proceso .section-title { color: var(--crema); }
+    #proceso .divider { background: var(--tierra); }
+    .proceso-header { max-width: 1080px; margin: 0 auto 4rem; text-align: center; }
+    .proceso-header .divider { margin: 1.4rem auto 2rem; }
+    .proceso-steps {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      position: relative;
+    }
+    .proceso-steps::before {
+      content: '';
+      position: absolute;
+      top: 2rem; left: calc(12.5% + 1rem);
+      right: calc(12.5% + 1rem);
+      height: 1px;
+      background: rgba(245,237,216,0.15);
+    }
+    .proceso-step { text-align: center; }
+    .paso-num {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      border: 1.5px solid var(--tierra);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.4rem;
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--tierra);
+      background: var(--verde);
+      position: relative; z-index: 1;
+    }
+    .paso-title {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--crema);
+      margin-bottom: 0.6rem;
+    }
+    .paso-desc {
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: rgba(245,237,216,0.5);
+    }
+
+    /* ══ CONTACTO ══ */
+    #contacto {
+      background: var(--crema-suave);
+      padding: 7rem 5%;
+    }
+    .contacto-grid {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .contacto-info h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--verde);
+    }
+    .contacto-info p {
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: #3a4a40;
+      margin-bottom: 2rem;
+    }
+    .contacto-dato {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      margin-bottom: 1.1rem;
+    }
+    .dato-icon {
+      width: 36px; height: 36px;
+      background: var(--verde);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+      color: var(--crema);
+      flex-shrink: 0;
+    }
+    .dato-text { font-size: 0.9rem; color: #3a4a40; line-height: 1.5; }
+    .dato-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gris); font-weight: 600; }
+
+    /* form */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+    .form-group label {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--verde);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 0.85rem 1rem;
+      border: 1.5px solid rgba(26,56,40,0.2);
+      border-radius: var(--radius);
+      background: white;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--texto);
+      transition: border-color var(--transition);
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--verde); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-submit { width: 100%; padding: 1rem; font-size: 0.8rem; }
+
+    /* ══ FOOTER ══ */
+    footer {
+      background: #0f2118;
+      padding: 3.5rem 5% 2rem;
+      color: rgba(245,237,216,0.45);
+    }
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(245,237,216,0.08);
+      margin-bottom: 2rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .footer-brand {
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .footer-brand-text {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--crema);
+      letter-spacing: 0.1em;
+    }
+    .footer-brand-sub {
+      font-size: 0.62rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--tierra);
+    }
+    .footer-links {
+      display: flex; gap: 2rem; flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(245,237,216,0.4);
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--crema); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .footer-copy { font-size: 0.72rem; }
+    .footer-tierra { color: var(--tierra); }
+
+    /* ══ REVEAL ANIMATION ══ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ══ MOBILE ══ */
+    @media (max-width: 900px) {
+      .nosotros-grid  { grid-template-columns: 1fr; gap: 3rem; }
+      .nosotros-visual { display: none; }
+      .servicios-grid { grid-template-columns: repeat(2, 1fr); }
+      .galeria-grid   { grid-template-columns: repeat(2, 1fr); }
+      .galeria-item.wide { grid-column: span 1; }
+      .proceso-steps  { grid-template-columns: repeat(2, 1fr); }
+      .proceso-steps::before { display: none; }
+      .contacto-grid  { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row       { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .servicios-grid { grid-template-columns: 1fr; }
+      .galeria-grid   { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+      .galeria-item.tall { grid-row: span 1; }
+      .proceso-steps  { grid-template-columns: 1fr; }
+      .galeria-header { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* mobile nav open */
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: fixed; top: 0; left: 0; right: 0;
+      background: var(--verde);
+      padding: 6rem 5% 3rem;
+      gap: 2rem;
+      align-items: center;
+      z-index: 998;
+    }
+    .nav-links.open a { font-size: 1.1rem; }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav id="navbar">
+    <a href="#inicio" class="nav-logo">
+      <!-- Tree SVG (miniatura del logo) -->
+      <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+        <rect width="320" height="320" fill="transparent"/>
+        <line x1="160" y1="205" x2="160" y2="105" stroke="#F5EDD8" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="160" y1="185" x2="110" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/>
+        <line x1="160" y1="185" x2="210" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/>
+        <line x1="110" y1="165" x2="90"  y2="152" stroke="#F5EDD8" stroke-width="1.4" stroke-linecap="round"/>
+        <line x1="210" y1="165" x2="230" y2="152" stroke="#F5EDD8" stroke-width="1.4" stroke-linecap="round"/>
+        <line x1="160" y1="162" x2="118" y2="145" stroke="#F5EDD8" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="160" y1="162" x2="202" y2="145" stroke="#F5EDD8" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="118" y1="145" x2="100" y2="134" stroke="#F5EDD8" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="202" y1="145" x2="220" y2="134" stroke="#F5EDD8" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="160" y1="140" x2="128" y2="126" stroke="#F5EDD8" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="160" y1="140" x2="192" y2="126" stroke="#F5EDD8" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="128" y1="126" x2="112" y2="118" stroke="#F5EDD8" stroke-width="1" stroke-linecap="round"/>
+        <line x1="192" y1="126" x2="208" y2="118" stroke="#F5EDD8" stroke-width="1" stroke-linecap="round"/>
+        <line x1="160" y1="120" x2="142" y2="111" stroke="#F5EDD8" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="160" y1="120" x2="178" y2="111" stroke="#F5EDD8" stroke-width="1.2" stroke-linecap="round"/>
+        <circle cx="160" cy="104" r="2.5" fill="#F5EDD8"/>
+        <line x1="160" y1="205" x2="142" y2="215" stroke="#C4935A" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="160" y1="205" x2="178" y2="215" stroke="#C4935A" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="142" y1="215" x2="132" y2="220" stroke="#C4935A" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="178" y1="215" x2="188" y2="220" stroke="#C4935A" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="nav-logo-text">VETTA NOBLE</div>
+        <div class="nav-logo-sub">Carpintería Artesanal</div>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#nosotros"  onclick="closeNav()">Nosotros</a></li>
+      <li><a href="#servicios" onclick="closeNav()">Servicios</a></li>
+      <li><a href="#galeria"   onclick="closeNav()">Galería</a></li>
+      <li><a href="#proceso"   onclick="closeNav()">Proceso</a></li>
+      <li><a href="#contacto"  onclick="closeNav()">Contacto</a></li>
+    </ul>
+    <div class="nav-toggle" id="navToggle" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section id="inicio">
+    <div class="hero-content">
+      <!-- Logo grande centrado -->
+      <div class="hero-tree">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="160" height="160">
+          <line x1="160" y1="205" x2="160" y2="105" stroke="#F5EDD8" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="160" y1="185" x2="110" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/>
+          <line x1="160" y1="185" x2="210" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/>
+          <line x1="110" y1="165" x2="90"  y2="152" stroke="#F5EDD8" stroke-width="1.4" stroke-linecap="round"/>
+          <line x1="210" y1="165" x2="230" y2="152" stroke="#F5EDD8" stroke-width="1.4" stroke-linecap="round"/>
+          <line x1="160" y1="162" x2="118" y2="145" stroke="#F5EDD8" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="160" y1="162" x2="202" y2="145" stroke="#F5EDD8" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="118" y1="145" x2="100" y2="134" stroke="#F5EDD8" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="202" y1="145" x2="220" y2="134" stroke="#F5EDD8" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="160" y1="140" x2="128" y2="126" stroke="#F5EDD8" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="160" y1="140" x2="192" y2="126" stroke="#F5EDD8" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="128" y1="126" x2="112" y2="118" stroke="#F5EDD8" stroke-width="1" stroke-linecap="round"/>
+          <line x1="192" y1="126" x2="208" y2="118" stroke="#F5EDD8" stroke-width="1" stroke-linecap="round"/>
+          <line x1="160" y1="120" x2="142" y2="111" stroke="#F5EDD8" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="160" y1="120" x2="178" y2="111" stroke="#F5EDD8" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="160" cy="104" r="2.5" fill="#F5EDD8"/>
+          <line x1="160" y1="205" x2="142" y2="215" stroke="#C4935A" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="160" y1="205" x2="178" y2="215" stroke="#C4935A" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="142" y1="215" x2="132" y2="220" stroke="#C4935A" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="178" y1="215" x2="188" y2="220" stroke="#C4935A" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h1 class="hero-name">VETTA NOBLE</h1>
+      <p class="hero-tag">Carpintería Artesanal</p>
+      <p class="hero-sub">Madera que cuenta historias. Cada pieza, una obra única diseñada para durar generaciones.</p>
+      <div class="hero-ctas">
+        <a href="#galeria"   class="btn btn-crema">Ver trabajos</a>
+        <a href="#contacto"  class="btn btn-outline">Cotizar proyecto</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ══ NOSOTROS ══ -->
+  <section id="nosotros">
+    <div class="nosotros-grid">
+      <div class="reveal">
+        <p class="section-label">Quiénes somos</p>
+        <h2 class="section-title">Artesanos de la <em>madera noble</em></h2>
+        <div class="divider"></div>
+        <p class="nosotros-body">
+          En Vetta Noble creemos que la carpintería es un lenguaje. Cada veta, cada ensamble, cada acabado es una palabra en la historia de un espacio. Trabajamos con madera cuidadosamente seleccionada para transformarla en piezas que combinan funcionalidad, belleza y durabilidad.
+        </p>
+        <p class="nosotros-body">
+          Desde muebles a medida hasta restauraciones de piezas con historia, nuestro proceso comienza siempre escuchando al cliente y entendiendo su visión. El resultado: un objeto que se siente único porque lo es.
+        </p>
+        <div class="values">
+          <span class="value-chip">Artesanal</span>
+          <span class="value-chip">A medida</span>
+          <span class="value-chip">Maderas nobles</span>
+          <span class="value-chip">Sustentable</span>
+        </div>
+      </div>
+      <div class="nosotros-visual reveal">
+        <div class="nosotros-accent"></div>
+        <div class="nosotros-box">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="90" height="90">
+            <line x1="160" y1="205" x2="160" y2="105" stroke="#F5EDD8" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="160" y1="185" x2="110" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/>
+            <line x1="160" y1="185" x2="210" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/>
+            <line x1="110" y1="165" x2="90"  y2="152" stroke="#F5EDD8" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="210" y1="165" x2="230" y2="152" stroke="#F5EDD8" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="160" y1="162" x2="118" y2="145" stroke="#F5EDD8" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="160" y1="162" x2="202" y2="145" stroke="#F5EDD8" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="160" y1="140" x2="128" y2="126" stroke="#F5EDD8" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="160" y1="140" x2="192" y2="126" stroke="#F5EDD8" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="160" cy="104" r="2.5" fill="#F5EDD8"/>
+            <line x1="160" y1="205" x2="142" y2="215" stroke="#C4935A" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="160" y1="205" x2="178" y2="215" stroke="#C4935A" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="142" y1="215" x2="132" y2="220" stroke="#C4935A" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="178" y1="215" x2="188" y2="220" stroke="#C4935A" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <p>"La madera tiene memoria. Nosotros la ayudamos a recordar."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SERVICIOS ══ -->
+  <section id="servicios">
+    <div class="servicios-header reveal">
+      <p class="section-label">Lo que hacemos</p>
+      <h2 class="section-title">Nuestros <em>servicios</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="servicios-grid">
+      <div class="servicio-card reveal">
+        <span class="servicio-icon">🪵</span>
+        <div class="servicio-name">Muebles a medida</div>
+        <p class="servicio-desc">Diseñamos y fabricamos muebles personalizados: camas, libreros, comedores, mesas y más. Tu espacio, tu diseño.</p>
+      </div>
+      <div class="servicio-card reveal">
+        <span class="servicio-icon">🍳</span>
+        <div class="servicio-name">Cocinas y alacenas</div>
+        <p class="servicio-desc">Cocinas integrales en madera sólida o laminada. Diseño funcional con acabados de alta calidad.</p>
+      </div>
+      <div class="servicio-card reveal">
+        <span class="servicio-icon">🚪</span>
+        <div class="servicio-name">Puertas y ventanas</div>
+        <p class="servicio-desc">Puertas interiores y exteriores, ventanas y marcos en madera trabajados con precisión artesanal.</p>
+      </div>
+      <div class="servicio-card reveal">
+        <span class="servicio-icon">🔨</span>
+        <div class="servicio-name">Restauración</div>
+        <p class="servicio-desc">Devolvemos la vida a piezas con historia. Restauramos muebles antiguos respetando su esencia original.</p>
+      </div>
+      <div class="servicio-card reveal">
+        <span class="servicio-icon">🏠</span>
+        <div class="servicio-name">Revestimientos</div>
+        <p class="servicio-desc">Pisos, techos y paredes con revestimiento de madera. Ambientes cálidos y únicos que elevan cualquier espacio.</p>
+      </div>
+      <div class="servicio-card reveal">
+        <span class="servicio-icon">✏️</span>
+        <div class="servicio-name">Consultoría de diseño</div>
+        <p class="servicio-desc">Te acompañamos desde la idea hasta el plano. Asesoramos sobre materiales, estilos y soluciones para tu proyecto.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ GALERÍA ══ -->
+  <section id="galeria">
+    <div class="galeria-header">
+      <div class="reveal">
+        <p class="section-label">Portafolio</p>
+        <h2 class="section-title">Nuestros <em>trabajos</em></h2>
+        <div class="divider"></div>
+      </div>
+      <a href="#contacto" class="btn btn-tierra reveal">Cotizar proyecto</a>
+    </div>
+    <div class="galeria-grid">
+      <div class="galeria-item tall reveal">
+        <div class="galeria-placeholder">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><line x1="160" y1="205" x2="160" y2="105" stroke="#F5EDD8" stroke-width="2.5" stroke-linecap="round"/><line x1="160" y1="185" x2="110" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/><line x1="160" y1="185" x2="210" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/><circle cx="160" cy="104" r="2.5" fill="#F5EDD8"/></svg>
+          <span>Próximamente</span>
+        </div>
+        <div class="galeria-overlay"></div>
+      </div>
+      <div class="galeria-item reveal">
+        <div class="galeria-placeholder">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><line x1="160" y1="205" x2="160" y2="105" stroke="#F5EDD8" stroke-width="2.5" stroke-linecap="round"/><line x1="160" y1="185" x2="110" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/><line x1="160" y1="185" x2="210" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/><circle cx="160" cy="104" r="2.5" fill="#F5EDD8"/></svg>
+          <span>Próximamente</span>
+        </div>
+        <div class="galeria-overlay"></div>
+      </div>
+      <div class="galeria-item reveal">
+        <div class="galeria-placeholder">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><line x1="160" y1="205" x2="160" y2="105" stroke="#F5EDD8" stroke-width="2.5" stroke-linecap="round"/><line x1="160" y1="185" x2="110" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/><line x1="160" y1="185" x2="210" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/><circle cx="160" cy="104" r="2.5" fill="#F5EDD8"/></svg>
+          <span>Próximamente</span>
+        </div>
+        <div class="galeria-overlay"></div>
+      </div>
+      <div class="galeria-item wide reveal">
+        <div class="galeria-placeholder">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><line x1="160" y1="205" x2="160" y2="105" stroke="#F5EDD8" stroke-width="2.5" stroke-linecap="round"/><line x1="160" y1="185" x2="110" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/><line x1="160" y1="185" x2="210" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/><circle cx="160" cy="104" r="2.5" fill="#F5EDD8"/></svg>
+          <span>Próximamente</span>
+        </div>
+        <div class="galeria-overlay"></div>
+      </div>
+      <div class="galeria-item reveal">
+        <div class="galeria-placeholder">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><line x1="160" y1="205" x2="160" y2="105" stroke="#F5EDD8" stroke-width="2.5" stroke-linecap="round"/><line x1="160" y1="185" x2="110" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/><line x1="160" y1="185" x2="210" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/><circle cx="160" cy="104" r="2.5" fill="#F5EDD8"/></svg>
+          <span>Próximamente</span>
+        </div>
+        <div class="galeria-overlay"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PROCESO ══ -->
+  <section id="proceso">
+    <div class="proceso-header reveal">
+      <p class="section-label">¿Cómo trabajamos?</p>
+      <h2 class="section-title">Tu proyecto, <em>paso a paso</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="proceso-steps">
+      <div class="proceso-step reveal">
+        <div class="paso-num">01</div>
+        <div class="paso-title">Consulta</div>
+        <p class="paso-desc">Nos contactas y escuchamos tu idea, necesidades y espacio. Sin compromiso.</p>
+      </div>
+      <div class="proceso-step reveal">
+        <div class="paso-num">02</div>
+        <div class="paso-title">Diseño</div>
+        <p class="paso-desc">Elaboramos planos, seleccionamos materiales y te presentamos una propuesta visual.</p>
+      </div>
+      <div class="proceso-step reveal">
+        <div class="paso-num">03</div>
+        <div class="paso-title">Fabricación</div>
+        <p class="paso-desc">El taller entra en acción. Trabajamos con precisión artesanal en cada detalle.</p>
+      </div>
+      <div class="proceso-step reveal">
+        <div class="paso-num">04</div>
+        <div class="paso-title">Entrega</div>
+        <p class="paso-desc">Instalamos en tu espacio y garantizamos tu satisfacción completa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACTO ══ -->
+  <section id="contacto">
+    <div class="contacto-grid">
+      <div class="reveal">
+        <p class="section-label">Hablemos</p>
+        <h2 class="section-title" style="color:var(--verde)">¿Tienes un <em>proyecto en mente?</em></h2>
+        <div class="divider"></div>
+        <p style="font-size:0.95rem;line-height:1.8;color:#3a4a40;margin-bottom:2.5rem;">
+          Cuéntanos tu idea. Estamos aquí para convertirla en una pieza que dure toda la vida.
+        </p>
+        <div class="contacto-dato">
+          <div class="dato-icon">📍</div>
+          <div class="dato-text">
+            <div class="dato-label">Ubicación</div>
+            México · Servicio a domicilio
+          </div>
+        </div>
+        <div class="contacto-dato">
+          <div class="dato-icon">📱</div>
+          <div class="dato-text">
+            <div class="dato-label">WhatsApp</div>
+            +52 · (tu número aquí)
+          </div>
+        </div>
+        <div class="contacto-dato">
+          <div class="dato-icon">✉️</div>
+          <div class="dato-text">
+            <div class="dato-label">Email</div>
+            hola@vettanoble.mx
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <form onsubmit="handleForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input type="text" id="nombre" placeholder="Tu nombre" required/>
+            </div>
+            <div class="form-group">
+              <label for="tel">Teléfono / Email</label>
+              <input type="text" id="tel" placeholder="+52 o correo" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="servicio">Tipo de proyecto</label>
+            <select id="servicio">
+              <option value="">Selecciona una opción</option>
+              <option>Mueble a medida</option>
+              <option>Cocina o alacena</option>
+              <option>Puerta o ventana</option>
+              <option>Restauración</option>
+              <option>Revestimiento</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Cuéntanos tu idea</label>
+            <textarea id="mensaje" placeholder="Describe tu proyecto, dimensiones, materiales que te gustan..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-tierra form-submit">Enviar mensaje</button>
+        </form>
+        <p id="form-ok" style="display:none;margin-top:1rem;color:var(--verde);font-size:0.88rem;text-align:center;">
+          ✓ Mensaje enviado. Te contactamos pronto.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="32" height="32">
+            <line x1="160" y1="205" x2="160" y2="105" stroke="#F5EDD8" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="160" y1="185" x2="110" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/>
+            <line x1="160" y1="185" x2="210" y2="165" stroke="#F5EDD8" stroke-width="2" stroke-linecap="round"/>
+            <line x1="160" y1="162" x2="118" y2="145" stroke="#F5EDD8" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="160" y1="162" x2="202" y2="145" stroke="#F5EDD8" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="160" cy="104" r="2.5" fill="#F5EDD8"/>
+            <line x1="160" y1="205" x2="142" y2="215" stroke="#C4935A" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="160" y1="205" x2="178" y2="215" stroke="#C4935A" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <div class="footer-brand-text">VETTA NOBLE</div>
+            <div class="footer-brand-sub">Carpintería Artesanal</div>
+          </div>
+        </div>
+        <ul class="footer-links">
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#proceso">Proceso</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2025 Vetta Noble. Todos los derechos reservados.</span>
+        <span class="footer-copy">Hecho con <span class="footer-tierra">♥</span> y madera noble.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Navbar scroll ── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    /* ── Mobile nav ── */
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    function closeNav() {
+      document.getElementById('navLinks').classList.remove('open');
+    }
+
+    /* ── Reveal on scroll ── */
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    /* ── Form mock submit ── */
+    function handleForm(e) {
+      e.preventDefault();
+      document.getElementById('form-ok').style.display = 'block';
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>
