@@ -32,6 +32,20 @@ h1{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.2;m
 .btn-tierra{background:var(--tierra);color:var(--crema)}
 footer{background:#0f2118;color:rgba(245,237,216,.45);text-align:center;padding:2.5rem 5%;font-size:.75rem}
 @media(max-width:800px){.product{grid-template-columns:1fr}header nav{display:none}}
+
+.gallery img.zoomable{cursor:zoom-in;transition:transform .5s ease,box-shadow .5s ease}
+.gallery img.zoomable:hover{transform:scale(1.04);box-shadow:0 14px 34px rgba(26,56,40,.25)}
+.cta-box{margin-top:2.2rem;padding:1.8rem;background:var(--verde);border-radius:6px;color:var(--crema);position:relative;overflow:hidden}
+.cta-box:before{content:'';position:absolute;right:-44px;top:-44px;width:150px;height:150px;border-radius:50%;background:rgba(196,147,90,.2)}
+.cta-title{font-family:var(--serif);font-size:1.5rem;margin-bottom:.5rem;position:relative}
+.cta-sub{font-size:.92rem;line-height:1.6;color:rgba(245,237,216,.82);margin-bottom:1.2rem;position:relative}
+.cta-btn{position:relative;display:inline-block;background:#25D366;color:#fff;padding:1rem 2.2rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.82rem;border-radius:4px;animation:pulseWa 2.2s infinite}
+.cta-btn:hover{background:#1ebe5a}
+@keyframes pulseWa{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+#lb{position:fixed;inset:0;background:rgba(15,33,24,.94);display:none;align-items:center;justify-content:center;z-index:999;cursor:zoom-out;padding:2rem}
+#lb.open{display:flex}
+#lb img{max-width:100%;max-height:90vh;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+#lb span{position:absolute;top:1rem;right:1.6rem;color:#F5EDD8;font-size:2.4rem;line-height:1;cursor:pointer}
 </style>
 </head>
 <body>
@@ -45,13 +59,17 @@ footer{background:#0f2118;color:rgba(245,237,216,.45);text-align:center;padding:
 <h1>Cajonera con cambiador</h1>
 <div class="desc"><p>Diseñada para la habitación del bebé. La charola cambiadora se retira cuando crece y la pieza queda como cómoda para su cuarto.</p><p>Tiene dos cajones superiores y dos amplios, con tiradores metálicos satinados. Puedes elegir el color del acabado para que combine con tu espacio.</p></div>
 <div class="specs"><div><b>Medidas</b><span>94 × 49 × 104 cm</span></div><div><b>Espacio para cambiador</b><span>82 × 44 cm</span></div><div><b>Incluye</b><span>Charola cambiadora</span></div><div><b>No incluye</b><span>Colchón cambiador</span></div><div><b>Material</b><span>Estructura de madera, con MDF en elementos no estructurales</span></div><div><b>Acabado</b><span>Laca de poliuretano semimate, libre de plomo</span></div><div><b>Capacidad máxima</b><span>15 kg</span></div></div>
-<div class="cta">
-<a class="btn btn-verde" href="https://wa.me/526674275305">WhatsApp</a>
-<a class="btn btn-tierra" href="mailto:vettanoble@gmail.com">Cotizar por correo</a>
-</div>
+<div class="cta-box"><p class="cta-title">¿Te enamoró esta pieza?</p><p class="cta-sub">Escríbenos ahora por WhatsApp y te respondemos con precio, tiempo de entrega y opciones de acabado.</p><a class="cta-btn" href="https://wa.me/526674275305?text=Hola%2C%20me%20interesa%20la%20cajonera%20con%20cambiador.%20%C2%BFMe%20compartes%20precio%20y%20tiempo%20de%20entrega%3F">Cotizar por WhatsApp →</a></div>
 </div>
 </div>
 </main>
 <footer>© 2025 Vetta Noble · Carpintería Artesanal</footer>
+<div id="lb"><span>×</span><img alt=""/></div>
+<script>
+(function(){var lb=document.getElementById('lb'),li=lb.querySelector('img');
+document.querySelectorAll('.gallery img').forEach(function(im){im.classList.add('zoomable');im.addEventListener('click',function(){li.src=im.src;li.alt=im.alt;lb.classList.add('open');});});
+lb.addEventListener('click',function(){lb.classList.remove('open');});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('open');});})();
+</script>
 </body>
 </html>
