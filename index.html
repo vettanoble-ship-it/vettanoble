@@ -967,7 +967,7 @@
         document.getElementById('form-ok').style.display = 'block';
         e.target.reset();
       } catch (err) {
-        alert('No pudimos enviar tu mensaje. Escríbenos por WhatsApp al +52 667 427 5305.');
+        {const n=document.getElementById('nombre').value,c=document.getElementById('tel').value,p=document.getElementById('servicio').value,m=document.getElementById('mensaje').value;window.open('https://wa.me/526674275305?text='+encodeURIComponent('Hola, soy '+n+' ('+c+'). Proyecto: '+p+'. '+m),'_blank');}
       }
     }
   </script>
