@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cajonera con cambiador — Vetta Noble</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--verde:#1A3828;--crema:#F5EDD8;--crema-suave:#FAF6ED;--tierra:#C4935A;--serif:'Playfair Display',Georgia,serif;--sans:'Raleway',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--crema-suave);color:var(--verde)}
+a{color:inherit;text-decoration:none}
+header{background:var(--verde);padding:1.1rem 5%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:var(--serif);color:var(--crema);letter-spacing:.12em;font-weight:700}
+header nav a{color:rgba(245,237,216,.8);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;margin-left:1.5rem}
+main{max-width:1080px;margin:0 auto;padding:3rem 5% 5rem}
+.back{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tierra);font-weight:600}
+.product{display:grid;grid-template-columns:1.15fr 1fr;gap:3.5rem;margin-top:2rem;align-items:start}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;background:#e9e2cf;display:block}
+.gallery img:first-child{grid-column:span 2;aspect-ratio:16/10}
+.label{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--tierra);font-weight:600;margin-bottom:.8rem}
+h1{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.2;margin-bottom:1.2rem}
+.desc p{line-height:1.8;margin-bottom:1rem;color:#3a4a40;font-size:.98rem}
+.specs{border-top:1px solid rgba(26,56,40,.15);margin-top:1.5rem}
+.specs div{display:flex;justify-content:space-between;gap:1rem;padding:.75rem 0;border-bottom:1px solid rgba(26,56,40,.1);font-size:.9rem}
+.specs b{font-weight:600}
+.cta{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap}
+.btn{display:inline-block;padding:.9rem 2rem;font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border-radius:4px}
+.btn-verde{background:var(--verde);color:var(--crema)}
+.btn-tierra{background:var(--tierra);color:var(--crema)}
+footer{background:#0f2118;color:rgba(245,237,216,.45);text-align:center;padding:2.5rem 5%;font-size:.75rem}
+@media(max-width:800px){.product{grid-template-columns:1fr}header nav{display:none}}
+</style>
+</head>
+<body>
+<header><a class="logo" href="index.html">VETTA NOBLE</a><nav><a href="index.html#galeria">Portafolio</a><a href="index.html#contacto">Contacto</a></nav></header>
+<main>
+<a class="back" href="index.html#galeria">← Volver al portafolio</a>
+<div class="product">
+<div class="gallery"><img src="https://lh3.googleusercontent.com/d/1eQ1PZLEnjVGeDwJzUpb2KrWsCspobtM8" alt="Cajonera con cambiador foto 1" loading="lazy"/><img src="https://lh3.googleusercontent.com/d/1WRKLy9M6n3_M3_sLdbx6e28_Qvcfo44q" alt="Cajonera con cambiador foto 2" loading="lazy"/><img src="https://lh3.googleusercontent.com/d/1Xs9Xr94CcOZ9aJ4W4s4_laI6Z4qMePGO" alt="Cajonera con cambiador foto 3" loading="lazy"/><img src="https://lh3.googleusercontent.com/d/1YGS-XHBx2kFOsQBnhobQjiFg2itQypJ-" alt="Cajonera con cambiador foto 4" loading="lazy"/></div>
+<div>
+<p class="label">Habitación del bebé</p>
+<h1>Cajonera con cambiador</h1>
+<div class="desc"><p>Diseñada para la habitación del bebé. La charola cambiadora se retira cuando crece y la pieza queda como cómoda para su cuarto.</p><p>Tiene dos cajones superiores y dos amplios, con tiradores metálicos satinados. Puedes elegir el color del acabado para que combine con tu espacio.</p></div>
+<div class="specs"><div><b>Medidas</b><span>94 × 49 × 104 cm</span></div><div><b>Espacio para cambiador</b><span>82 × 44 cm</span></div><div><b>Incluye</b><span>Charola cambiadora</span></div><div><b>No incluye</b><span>Colchón cambiador</span></div><div><b>Material</b><span>Estructura de madera, con MDF en elementos no estructurales</span></div><div><b>Acabado</b><span>Laca de poliuretano semimate, libre de plomo</span></div><div><b>Capacidad máxima</b><span>15 kg</span></div></div>
+<div class="cta">
+<a class="btn btn-verde" href="https://wa.me/526674275305">WhatsApp</a>
+<a class="btn btn-tierra" href="mailto:vettanoble@gmail.com">Cotizar por correo</a>
+</div>
+</div>
+</div>
+</main>
+<footer>© 2025 Vetta Noble · Carpintería Artesanal</footer>
+</body>
+</html>
