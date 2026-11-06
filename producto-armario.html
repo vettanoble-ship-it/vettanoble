@@ -57,8 +57,6 @@ footer{background:#0f2118;color:rgba(245,237,216,.45);text-align:center;padding:
 #lb .nav:hover{background:rgba(196,147,90,.4)}
 #lb .prev{left:1.2rem}
 #lb .next{right:1.2rem}
-#lb .dl{position:absolute;bottom:1.4rem;left:50%;transform:translateX(-50%);background:#C4935A;color:#F5EDD8;border:0;padding:.85rem 1.6rem;border-radius:4px;font-weight:700;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
-#lb .dl:hover{background:#a07540}
 </style>
 </head>
 <body>
@@ -77,19 +75,16 @@ footer{background:#0f2118;color:rgba(245,237,216,.45);text-align:center;padding:
 </div>
 </main>
 <footer>© 2025 Vetta Noble · Carpintería Artesanal</footer>
-<div id="lb"><span>×</span><button class="nav prev" aria-label="Anterior">‹</button><img alt=""/><button class="nav next" aria-label="Siguiente">›</button><button class="dl">Descargar foto</button></div>
+<div id="lb"><span>×</span><button class="nav prev" aria-label="Anterior">‹</button><img alt=""/><button class="nav next" aria-label="Siguiente">›</button></div>
 <script>
-(function(){var lb=document.getElementById('lb'),li=lb.querySelector('img'),pv=lb.querySelector('.prev'),nx=lb.querySelector('.next'),dl=lb.querySelector('.dl');
+(function(){var lb=document.getElementById('lb'),li=lb.querySelector('img'),pv=lb.querySelector('.prev'),nx=lb.querySelector('.next');
 var imgs=Array.prototype.slice.call(document.querySelectorAll('.gallery img')),i=0;
-var base=location.pathname.split('/').pop().replace('.html','')||'foto';
 function show(n){i=(n+imgs.length)%imgs.length;li.src=imgs[i].src;li.alt=imgs[i].alt;}
 imgs.forEach(function(im,k){im.classList.add('zoomable');im.addEventListener('click',function(){show(k);lb.classList.add('open');});});
 lb.addEventListener('click',function(e){if(e.target===lb||e.target.tagName==='SPAN')lb.classList.remove('open');});
 pv.addEventListener('click',function(e){e.stopPropagation();show(i-1);});
 nx.addEventListener('click',function(e){e.stopPropagation();show(i+1);});
 li.addEventListener('click',function(e){e.stopPropagation();});
-dl.addEventListener('click',function(e){e.stopPropagation();var name='vettanoble-'+base+'-'+(i+1)+'.jpg';
-fetch(imgs[i].src).then(function(r){return r.blob();}).then(function(b){var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u);},4000);}).catch(function(){window.open(imgs[i].src,'_blank');});});
 document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowLeft')show(i-1);if(e.key==='ArrowRight')show(i+1);});
 })();
 </script>
