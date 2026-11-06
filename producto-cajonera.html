@@ -52,6 +52,13 @@ footer{background:#0f2118;color:rgba(245,237,216,.45);text-align:center;padding:
 .wa-float svg{flex-shrink:0}
 @keyframes waPulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5),0 10px 28px rgba(0,0,0,.25)}70%{box-shadow:0 0 0 16px rgba(37,211,102,0),0 10px 28px rgba(0,0,0,.25)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0),0 10px 28px rgba(0,0,0,.25)}}
 @media(max-width:640px){.wa-float span{display:none}.wa-float{padding:1rem;border-radius:50%}}
+
+#lb .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(245,237,216,.14);border:0;color:#F5EDD8;font-size:3rem;line-height:1;width:56px;height:72px;border-radius:4px;cursor:pointer}
+#lb .nav:hover{background:rgba(196,147,90,.4)}
+#lb .prev{left:1.2rem}
+#lb .next{right:1.2rem}
+#lb .dl{position:absolute;bottom:1.4rem;left:50%;transform:translateX(-50%);background:#C4935A;color:#F5EDD8;border:0;padding:.85rem 1.6rem;border-radius:4px;font-weight:700;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+#lb .dl:hover{background:#a07540}
 </style>
 </head>
 <body>
@@ -70,12 +77,21 @@ footer{background:#0f2118;color:rgba(245,237,216,.45);text-align:center;padding:
 </div>
 </main>
 <footer>© 2025 Vetta Noble · Carpintería Artesanal</footer>
-<div id="lb"><span>×</span><img alt=""/></div>
+<div id="lb"><span>×</span><button class="nav prev" aria-label="Anterior">‹</button><img alt=""/><button class="nav next" aria-label="Siguiente">›</button><button class="dl">Descargar foto</button></div>
 <script>
-(function(){var lb=document.getElementById('lb'),li=lb.querySelector('img');
-document.querySelectorAll('.gallery img').forEach(function(im){im.classList.add('zoomable');im.addEventListener('click',function(){li.src=im.src;li.alt=im.alt;lb.classList.add('open');});});
-lb.addEventListener('click',function(){lb.classList.remove('open');});
-document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('open');});})();
+(function(){var lb=document.getElementById('lb'),li=lb.querySelector('img'),pv=lb.querySelector('.prev'),nx=lb.querySelector('.next'),dl=lb.querySelector('.dl');
+var imgs=Array.prototype.slice.call(document.querySelectorAll('.gallery img')),i=0;
+var base=location.pathname.split('/').pop().replace('.html','')||'foto';
+function show(n){i=(n+imgs.length)%imgs.length;li.src=imgs[i].src;li.alt=imgs[i].alt;}
+imgs.forEach(function(im,k){im.classList.add('zoomable');im.addEventListener('click',function(){show(k);lb.classList.add('open');});});
+lb.addEventListener('click',function(e){if(e.target===lb||e.target.tagName==='SPAN')lb.classList.remove('open');});
+pv.addEventListener('click',function(e){e.stopPropagation();show(i-1);});
+nx.addEventListener('click',function(e){e.stopPropagation();show(i+1);});
+li.addEventListener('click',function(e){e.stopPropagation();});
+dl.addEventListener('click',function(e){e.stopPropagation();var name='vettanoble-'+base+'-'+(i+1)+'.jpg';
+fetch(imgs[i].src).then(function(r){return r.blob();}).then(function(b){var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u);},4000);}).catch(function(){window.open(imgs[i].src,'_blank');});});
+document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowLeft')show(i-1);if(e.key==='ArrowRight')show(i+1);});
+})();
 </script>
 <a class="wa-float" href="https://wa.me/526674275305?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto" target="_blank" rel="noopener" aria-label="Cotizar por WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" fill="#fff" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7a11.9 11.9 0 0 0 5.6 1.4c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.1-3.4-8.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.9 9.9 0 0 1-1.5-5.2C2.1 6.4 6.5 2 12 2c2.7 0 5.2 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.5-4.4 9.9-9.9 9.9zm5.4-7.4c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg><span>WhatsApp</span></a>
 </body>
